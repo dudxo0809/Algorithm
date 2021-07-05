@@ -29,7 +29,8 @@ string solution(vector<int> numbers) {
     for (auto iter = numbers.begin(); iter != numbers.end(); ++iter) {
         answer += to_string(*iter);
     }
-    if(answer[0])
+    if (answer[0])
+        return "0";
 
     return answer;
 }
