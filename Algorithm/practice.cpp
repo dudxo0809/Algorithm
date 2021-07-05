@@ -1,33 +1,51 @@
-//----------------------------------//
-// K¹øÂ° ¼ö                         //
-//----------------------------------//
-
-
 #include <string>
 #include <vector>
 #include <algorithm>
-
+#include <iostream>
 
 using namespace std;
 
-vector<int> solution(vector<int> array, vector<vector<int>> commands) {
-    vector<int> answer;
+bool Pred(int a, int b) {
 
-    int i, j, k;
+    string temp1,temp2;
 
-    for (auto iter = commands.begin(); iter != commands.end(); ++iter) {
-        i = (*iter)[0];
-        j = (*iter)[1];
-        k = (*iter)[2];
+    string _a = to_string(a);
+    string _b = to_string(b);
+   
+    temp1 += _a;
+    temp1 += _b;
 
-        vector<int> temp;
-        for (int n = i - 1; n < j; n++) {
-            temp.push_back(array[n]);
-        }
-        sort(temp.begin(), temp.end());
-        answer.push_back(temp[k - 1]);
+    temp2 += _b;
+    temp2 += _a;
+
+    return atoi(temp1.c_str()) > atoi(temp2.c_str());
+}
+
+string solution(vector<int> numbers) {
+
+    string answer = "";
+
+    sort(numbers.begin(), numbers.end(), Pred);
+    for (auto iter = numbers.begin(); iter != numbers.end(); ++iter) {
+        answer += to_string(*iter);
     }
-
+    if(answer[0])
 
     return answer;
+}
+
+int main() {
+
+    vector<int> v;
+
+    for (int i = 0; i < 5; i++) {
+        int temp;
+        cin >> temp;
+        v.push_back(temp);
+    }
+
+    cout << solution(v);
+
+
+    return 0;
 }
