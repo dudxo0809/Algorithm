@@ -1,2 +1,2 @@
-# Programmers_Algorithm
+# Algorithm
 for coding test
