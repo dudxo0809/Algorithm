@@ -31,7 +31,8 @@ void GetLargestRoomScale();
 void GetLargestRoomScaleBreakWall();
 
 bool CheckMovable(Cell s, Cell e, int dir);
-bool CheckRoomContact(int Room1, int Room2);
+
+
 
 int main() {
 
@@ -114,7 +115,7 @@ void GetRoomNum() {
 }
 
 bool CheckMovable(Cell s, Cell e, int dir) {
-	// dir 의 index가 서로 0이어야함
+
 	return (s.cell[dir] == 0 && e.cell[(dir + 2) % 4] == 0);
 }
 
@@ -129,33 +130,21 @@ void GetLargestRoomScaleBreakWall() {
 
 	int Max_Scale = 0;
 
-	for (int i = 1; i <= RoomNum; i++) {
-		for (int j = i + 1; j <= RoomNum; j++) {
-			if (CheckRoomContact(i, j)) {
-				if ((RoomScale[i - 1] + RoomScale[j - 1]) > Max_Scale)
-					Max_Scale = RoomScale[i - 1] + RoomScale[j - 1];
-			}
-		}
-	}
-
-	LargestRoomScaleBreakWall = Max_Scale;
-}
-
-bool CheckRoomContact(int Room1, int Room2) {
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
-			if (visit[i][j] == Room1) {
-				for (int k = 0; k < 4; k++) {
-					int ny = i + dy[k];
-					int nx = j + dx[k];
-					if (ny >= 0 && ny < n && nx >= 0 && nx < m) {
-						if (visit[ny][nx] == Room2)
-							return true;
+
+			for (int k = 0; k < 4; k++) {
+				int ny = i + dy[k];
+				int nx = j + dx[k];
+				if (ny >= 0 && ny < n && nx >= 0 && nx < m) {
+					if (visit[i][j] != visit[ny][nx]) {
+						if (Max_Scale < RoomScale[visit[i][j] - 1] + RoomScale[visit[ny][nx] - 1])
+							Max_Scale = RoomScale[visit[i][j] - 1] + RoomScale[visit[ny][nx] - 1];
 					}
 				}
 			}
 		}
 	}
 
-	return false;
+	LargestRoomScaleBreakWall = Max_Scale;
 }
